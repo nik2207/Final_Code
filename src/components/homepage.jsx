@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import logo from './logo.png';
+import { useNavigate } from "react-router-dom";
 // --- SVG ICONS ---
 const SunIcon = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-yellow-500 ${className}`}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>;
 const MoonIcon = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`text-gray-400 ${className}`}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>;
@@ -1866,11 +1867,11 @@ const menuData = {
 
 };
 
+
 // --- COMPONENTS ---
-import { useNavigate } from "react-router-dom"
 const Header = ({ onCartClick, cartItems }) => (
     <header className="bg-white shadow-sm p-4 px-4 sm:px-8 flex justify-between items-center sticky top-0 z-50 border-b">
-        <img src="src\components\logo.png" alt="MyEzz Logo" className="h-25" />
+        <img src={logo} alt="MyEzz Logo" className="h-25" />
         <div className="flex items-center space-x-4">
             <button onClick={onCartClick} className="relative text-gray-600 hover:text-orange-500">
                 <CartIcon />
@@ -2164,8 +2165,7 @@ export default function App() {
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [cartItems, setCartItems] = useState([]);
     const [showCheckout, setShowCheckout] = useState(false);
-    
-    // REMOVED DEFAULT ADDRESS VALUES HERE
+
     const [address, setAddress] = useState({
         fullName: '',
         emailId: '',
@@ -2181,7 +2181,7 @@ export default function App() {
     };
 
     const isValidPhone = (phone) => {
-        const re = /^[0-9]{10}$/; // Simple 10-digit validation
+        const re = /^[0-9]{10}$/;
         return re.test(String(phone));
     };
 
@@ -2234,7 +2234,7 @@ export default function App() {
         <div className="bg-gray-100 min-h-screen font-sans transition-colors duration-500 pb-16 md:pb-0">
             <Header cartItems={cartItems} onCartClick={() => setShowCheckout(true)} />
             {renderPage()}
-            {showCheckout && <CheckoutPage cartItems={cartItems} onBack={() => setShowCheckout(false)} address={address} setAddress={setAddress} onPayNow={handlePayNow} />}
+            {showCheckout && <CheckoutPage cartItems={cartItems} onBack={() => setShowCheckout(false)} address={address} setAddress={setAddress} setCartItems={setCartItems} onPayNow={handlePayNow} />}
 
             {/* Mobile Bottom Nav */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-2">
